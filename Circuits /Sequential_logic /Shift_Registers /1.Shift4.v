@@ -6,6 +6,7 @@ module top_module(
     input [3:0] data,
     output reg [3:0] q
 ); 
+    integer i;
     always@(posedge clk or posedge areset)
         begin
             if(areset)
@@ -14,7 +15,7 @@ module top_module(
                 q<=data;
             else if(ena)
                 begin 
-                     for(int i=0;i<3;i++)
+                     for(i=0;i<3;i++)
                             q[i]=q[i+1];
                             q[3]<=0;
                 end     
