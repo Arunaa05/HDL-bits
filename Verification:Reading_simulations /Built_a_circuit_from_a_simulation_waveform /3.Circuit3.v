@@ -6,6 +6,6 @@ module top_module (
     output q 
 );
 
-    assign q = (b|a) & (d|c);
+    assign q =(a|b)&(c|d) ; 
 
 endmodule
