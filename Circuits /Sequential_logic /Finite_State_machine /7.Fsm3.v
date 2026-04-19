@@ -1,0 +1,56 @@
+module top_module(
+    input clk,
+    input in,
+    input areset,
+    output out
+); 
+     
+    parameter A=0, B=1, C=2, D=3;
+    reg [1:0] state,next_state;
+    always @(posedge clk or posedge areset) begin
+        if(areset)
+            state<=A;
+        else
+            state<=next_state;
+    end
+    always @(*) begin
+        case(state)
+            A:begin
+                if(in)
+                    next_state<=B;
+                else
+                    next_state<=A;
+            end
+            B:begin
+                if(in)
+                    next_state<=B;
+                else
+                    next_state<=C;
+            end
+            C:begin
+                if(in)
+                    next_state<=D;
+                else
+                    next_state<=A;
+            end
+            D:begin
+                if(in)
+                    next_state<=B;
+                else
+                    next_state<=C;
+            end
+        endcase
+    end
+   assign out=(state==D);
+   /* always@(state)
+        begin
+            case(state)
+                A: out <= 1'b0;
+               	B: out <= 1'b0;
+                C: out <= 1'b0;
+                D: out <= 1'b1;
+                default: out <= 1'b0;
+            endcase
+        end*/
+    
+endmodule
