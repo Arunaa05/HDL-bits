@@ -1,0 +1,30 @@
+module top_module(
+    input clk,
+    input [7:0] in,
+    input reset,    // Synchronous reset
+    output done
+); 
+    parameter byte1=0,byte2=1,byte3=2,done_r=3;
+    reg [1:0]state,next_state;
+    
+    always@(*)
+        begin
+            case(state)
+                byte1:next_state = in[3] ? byte2 : byte1;
+                byte2:next_state = byte3;
+                byte3:next_state = done_r;
+                done_r:next_state = in[3] ? byte2 : byte1;
+            endcase
+        end
+    
+    always@(posedge clk)
+        begin
+            if(reset)
+                state<=byte1;
+            else
+                state<=next_state;
+        end
+    
+    assign done = (state == done_r);
+
+endmodule
