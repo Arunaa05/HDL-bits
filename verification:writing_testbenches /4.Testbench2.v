@@ -13,7 +13,6 @@ module top_module();
         in=0;s=7;#10;
         in=1;s=0;#30;
         in=0;
-        $finish;
     end
         
 
